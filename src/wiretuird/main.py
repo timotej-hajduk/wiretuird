@@ -151,13 +151,13 @@ class WGManagerApp(App[None]):
 
     def refresh_table(self) -> None:
         table = self.query_one("#config_table", DataTable)
+        previous = self._current_interface()
         table.clear()
 
         items = build_config_items()
         self.row_interfaces = [item.interface for item in items]
 
         active_row = None
-        previous = self.selected_interface
 
         for idx, item in enumerate(items):
             state = "ACTIVE" if item.active else ""
@@ -166,10 +166,10 @@ class WGManagerApp(App[None]):
                 active_row = idx
 
         target_row = None
-        if active_row is not None:
-            target_row = active_row
-        elif previous and previous in self.row_interfaces:
+        if previous and previous in self.row_interfaces:
             target_row = self.row_interfaces.index(previous)
+        elif active_row is not None:
+            target_row = active_row
         elif self.row_interfaces:
             target_row = 0
 
@@ -190,6 +190,12 @@ class WGManagerApp(App[None]):
         return f"Active: {', '.join(active)}"
 
     def _current_interface(self) -> str | None:
+        table = self.query_one("#config_table", DataTable)
+        cursor_row = table.cursor_row
+        if isinstance(cursor_row, int) and 0 <= cursor_row < len(self.row_interfaces):
+            interface = self.row_interfaces[cursor_row]
+            self.selected_interface = interface
+            return interface
         return self.selected_interface
 
     def on_data_table_row_selected(self, event: DataTable.RowSelected) -> None:

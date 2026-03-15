@@ -1,12 +1,35 @@
 [project]
 name = "wiretuird"
 version = "0.2.0"
-description = "Add your description here"
+description = "A small Textual TUI for bringing WireGuard interfaces up and down without typing sudo commands."
 readme = "README.md"
 requires-python = ">=3.14"
+license = "MIT"
+authors = [
+    { name = "Timotej Hajduk" },
+]
+keywords = ["wireguard", "tui", "textual", "networking", "linux"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Networking",
+    "Topic :: Terminals",
+]
 dependencies = [
     "textual>=7.5.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/timotejhajduk/wiretuird"
+Repository = "https://github.com/timotejhajduk/wiretuird"
+Issues = "https://github.com/timotejhajduk/wiretuird/issues"
 
 [project.scripts]
 wiretuird = "wiretuird:main"
